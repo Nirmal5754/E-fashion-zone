@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listenToAuthChanges } from "./features/auth/authListener";
+import { listenToAuthChanges } from "./Features/auth/authListener";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import { auth } from "./services/firebase";
