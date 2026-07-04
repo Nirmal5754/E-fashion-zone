@@ -66,13 +66,11 @@ useEffect(() => {
       <Route path='/orders' element={ <ProtectedRoute>
     <Orders/>
 </ProtectedRoute>}/>
+      <Route path='/success' element={<Success/>}/>
         </Route>
 
          <Route path='/login'  element={<Login/>}/>
         <Route path='/register'  element={<Register/>}/>
-  <Route path='/success' element={ <ProtectedRoute>
-    <Success/>
-</ProtectedRoute>}/>
 {/* {Protected routes} */}
 
 
