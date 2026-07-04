@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import { setUser, clearUser } from "./authSlice";
+import { setCartOwner } from "../Cart/cartSlice";
 
 export const listenToAuthChanges = (dispatch) => {
   onAuthStateChanged(auth, (user) => {
@@ -13,8 +14,10 @@ export const listenToAuthChanges = (dispatch) => {
           photoURL: user.photoURL,
         })
       );
+      dispatch(setCartOwner(user.uid));
     } else {
       dispatch(clearUser());
+      dispatch(setCartOwner("guest"));
     }
   });
 };

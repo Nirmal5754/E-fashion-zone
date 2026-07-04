@@ -1,19 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 
-const storedCart = localStorage.getItem('cart');
-const initialState = {
-cartItems : storedCart ? JSON.parse(storedCart) :  [] , 
+const getCartKey = (ownerId) => `cart:${ownerId || 'guest'}`;
+
+const loadFromStorage = (ownerId) => {
+    try {
+        const storedCart = localStorage.getItem(getCartKey(ownerId));
+        return storedCart ? JSON.parse(storedCart) : [];
+    } catch {
+        return [];
+    }
 }
 
-const saveToStorage = (items) =>{
-    localStorage.setItem('cart', JSON.stringify(items));
+const initialState = {
+ownerId : 'guest',
+cartItems : loadFromStorage('guest') , 
+}
+
+const saveToStorage = (ownerId, items) =>{
+    localStorage.setItem(getCartKey(ownerId), JSON.stringify(items));
 }
 
 
 const cartSlice = createSlice (
     {
 name :'cart', initialState, reducers : {
+setCartOwner(state, action){
+ state.ownerId = action.payload || 'guest';
+ state.cartItems = loadFromStorage(state.ownerId);
+},
+
 addToCart(state,action){
  const fitem = state.cartItems.find((i)=>i.id === action.payload.id);
  if(fitem) fitem.quantity += 1;
@@ -22,12 +37,12 @@ addToCart(state,action){
  state.cartItems.push({...action.payload,quantity : 1});
  
  }
- saveToStorage(state.cartItems);
+ saveToStorage(state.ownerId, state.cartItems);
 } ,
 
 removeFromCart(state,action){
 state.cartItems =  state.cartItems.filter((r)=>r.id !== action.payload.id);
- saveToStorage(state.cartItems);
+ saveToStorage(state.ownerId, state.cartItems);
 },
 
 increaseQty(state,action){
@@ -39,22 +54,22 @@ increaseQty(state,action){
     }
 
     )
-     saveToStorage(state.cartItems);
+     saveToStorage(state.ownerId, state.cartItems);
 } ,
 
 decreaseQty(state,action){
 if(action.payload.quantity > 1)  action.payload.quantity--;
 else if(action.payload.quantity === 1){
 state.cartItems =  state.cartItems.filter((r)=>r.id !== action.payload.id);
- saveToStorage(state.cartItems);
 }
+ saveToStorage(state.ownerId, state.cartItems);
 
 
 }
 ,
 clearCart(state){
  state.cartItems = [];
- localStorage.removeItem('cart');
+ localStorage.removeItem(getCartKey(state.ownerId));
 }
 
 
@@ -74,5 +89,5 @@ clearCart(state){
 );
 
 
-export const {addToCart,removeFromCart,increaseQty, decreaseQty, clearCart} = cartSlice.actions;
+export const {setCartOwner, addToCart,removeFromCart,increaseQty, decreaseQty, clearCart} = cartSlice.actions;
 export default cartSlice.reducer; 
