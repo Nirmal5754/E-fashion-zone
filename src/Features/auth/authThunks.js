@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword,GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword,GoogleAuthProvider, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
 
 import {auth} from '../../services/firebase'; 
 
@@ -44,17 +44,8 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account",
 });
-const result = await signInWithPopup(
-    auth , provider 
-)
-const user = result.user;
-return {
-    uid : user.uid, 
-    email:user.email , 
-    displayName : user.displayName , 
-    photoURL : user.photoURL ,
-
-};
+await signInWithRedirect(auth, provider);
+return null;
 } catch (error) {
 return thunkAPI.rejectWithValue(error.message);    
 }
