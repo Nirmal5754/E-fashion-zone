@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk("auth/registerUser" ,
             const userCredential = await createUserWithEmailAndPassword(auth,email,password);
             const user = userCredential.user;
             return{
-                uid: user.id , email : user.email ,displayName : user.displayName , photoUrl : user.photoURL
+                uid: user.uid , email : user.email ,displayName : user.displayName , photoUrl : user.photoURL
             };
         } catch (error) {
           return  thunkAPI.rejectWithValue(error.message);
@@ -27,7 +27,7 @@ export const loginUser = createAsyncThunk("auth/loginUser" , async({email,passwo
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
   const user = userCredential.user;
             return{
-                uid: user.id , email : user.email ,displayName : user.displayName , photoUrl : user.photoURL
+                uid: user.uid , email : user.email ,displayName : user.displayName , photoUrl : user.photoURL
             };
     } 
     catch (error) {

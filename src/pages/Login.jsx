@@ -2,6 +2,7 @@ import React, {useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser , googleLogin } from '../Features/auth/authThunks'
 import { clearAuthError } from '../Features/auth/authSlice'
+import { setCartOwner } from '../Features/Cart/cartSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -28,7 +29,8 @@ const handleChange = (e) =>{
     e.preventDefault();
 
 try {
- await dispatch(loginUser(formData)).unwrap();
+ const user = await dispatch(loginUser(formData)).unwrap();
+ dispatch(setCartOwner(user.uid));
  toast.success("Logged in Successfully !");
   setFormData({
         email :'' , password : '',
@@ -43,7 +45,8 @@ try {
 
 const handleGoogleLogin = async() =>{
   try {
-    await dispatch(googleLogin()).unwrap();
+    const user = await dispatch(googleLogin()).unwrap();
+    dispatch(setCartOwner(user.uid));
     toast.success('Successfully Logged in with google !');
     navigate('/');
 

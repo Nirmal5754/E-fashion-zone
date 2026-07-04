@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logoutUser } from '../Features/auth/authThunks'
+import { setCartOwner } from '../Features/Cart/cartSlice'
 import { toast } from 'react-toastify'
 
 
@@ -13,6 +14,7 @@ const LogoutButton = () => {
    const handleLogout = async() =>{
 try {
     await dispatch(logoutUser()).unwrap();
+    dispatch(setCartOwner("guest"));
     toast.success("Logged Out Successfully !");
     navigate('/');
 } catch (error) {

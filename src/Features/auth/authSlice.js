@@ -49,6 +49,8 @@ clearAuthError : (state)=>{
       .addCase(registerUser.fulfilled,(state,action)=>{
       state.loading = false;
       state.user = action.payload;
+      state.isAuthenticated = true;
+      state.authChecked = true;
       // state.isAuthenticated = true;
       // localStorage.setItem('user',JSON.stringify(action.payload));
 
@@ -66,6 +68,8 @@ clearAuthError : (state)=>{
       .addCase(loginUser.fulfilled,(state,action)=>{
       state.loading = false;
       state.user = action.payload;
+      state.isAuthenticated = true;
+      state.authChecked = true;
 
       // state.isAuthenticated = true;
       //     localStorage.setItem('user',JSON.stringify(action.payload));
@@ -88,6 +92,8 @@ clearAuthError : (state)=>{
       .addCase(googleLogin.fulfilled,(state,action)=>{
       state.loading = false;
       state.user = action.payload;
+      state.isAuthenticated = true;
+      state.authChecked = true;
       // state.isAuthenticated = true;
       //     localStorage.setItem('user',JSON.stringify(action.payload));
       })
@@ -104,6 +110,8 @@ clearAuthError : (state)=>{
          .addCase(logoutUser.fulfilled,(state)=>{
     state.loading = false;
       state.user = null;
+      state.isAuthenticated = false;
+      state.authChecked = true;
       // state.isAuthenticated = false;
       //     localStorage.removeItem('user');
       })

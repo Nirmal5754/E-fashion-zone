@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '../pages/Home'
 import Products from '../pages/Products'
@@ -11,35 +11,11 @@ import Orders from '../pages/Orders'
 import ProtectedRoute from './ProtectedRoute'
 // import Navbar from '../components/Navbar'
 import MainLayout from '../Layouts/MainLayout'
-import { useDispatch } from 'react-redux'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../services/firebase'
-import { setUser } from '../Features/auth/authSlice'
 import Success from '../pages/Success'
 
 
 
 const AppRoutes = () => {
-const dispatch = useDispatch();
-useEffect(() => {
-  
- const unsubscribe = onAuthStateChanged(auth,(user)=>{
-  if(user){
-    dispatch(setUser({
-      uid : user.uid, 
-
-      email : user.email , 
-
-
-    }))
-  }
- });
- return ()=> unsubscribe();
-
-}, [dispatch]);
-
-
-
   return (
     <div>
       <BrowserRouter>
