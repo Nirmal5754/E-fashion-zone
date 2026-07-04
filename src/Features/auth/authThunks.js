@@ -41,6 +41,9 @@ export const googleLogin = createAsyncThunk(
 "auth/googleLogin" , async ( _ ,thunkAPI  )=>{
 try {
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+    prompt: "select_account",
+});
 const result = await signInWithPopup(
     auth , provider 
 )

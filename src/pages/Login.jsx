@@ -37,7 +37,7 @@ try {
       });
       navigate('/');
 } catch (error) {
-  
+  toast.error(error || "Login failed. Please try again.");
 }
 
   }
@@ -50,7 +50,9 @@ const handleGoogleLogin = async() =>{
     toast.success('Successfully Logged in with google !');
     navigate('/');
 
-  } catch (error) {}
+  } catch (error) {
+    toast.error(error || "Google login failed. Please try again.");
+  }
 
 }
 
