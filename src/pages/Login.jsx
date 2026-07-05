@@ -45,7 +45,10 @@ try {
 
 const handleGoogleLogin = async() =>{
   try {
-    await dispatch(googleLogin()).unwrap();
+    const user = await dispatch(googleLogin()).unwrap();
+    dispatch(setCartOwner(user.uid));
+    toast.success('Successfully Logged in with google !');
+    navigate('/');
 
   } catch (error) {
     toast.error(error || "Google login failed. Please try again.");
