@@ -57,15 +57,21 @@ increaseQty(state,action){
      saveToStorage(state.ownerId, state.cartItems);
 } ,
 
-decreaseQty(state,action){
-if(action.payload.quantity > 1)  action.payload.quantity--;
-else if(action.payload.quantity === 1){
-state.cartItems =  state.cartItems.filter((r)=>r.id !== action.payload.id);
-}
- saveToStorage(state.ownerId, state.cartItems);
+decreaseQty(state, action) {
+    state.cartItems.map((i) => {
+        if (i.id === action.payload.id) {
+            if (i.quantity > 1) {
+                i.quantity -= 1;
+            } else {
+                state.cartItems = state.cartItems.filter(
+                    (r) => r.id !== action.payload.id
+                );
+            }
+        }
+    });
 
-
-}
+    saveToStorage(state.ownerId, state.cartItems);
+},
 ,
 clearCart(state){
  state.cartItems = [];

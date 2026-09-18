@@ -58,7 +58,8 @@ if(cartItems.length === 0) return <div className="container mt-5 text-center ">
 
 
    
-  </div> <button className="mt-10 border-2 border-black-100 rounded-lg font-semibold px-5 py-2" onClick={()=>dispatch(clearCart())}>Clear Cart</button> <div className="mt-3">
+  </div> 
+  <button className="mt-10 border-2 border-black-100 rounded-lg font-semibold px-5 py-2" onClick={()=>dispatch(clearCart())}>Clear Cart</button> <div className="mt-3">
 </div>
  
     </div>
