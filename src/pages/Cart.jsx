@@ -38,7 +38,7 @@ if(cartItems.length === 0) return <div className="container mt-5 text-center ">
   <button className="px-2 bg-gray-200 rounded border-b" onClick={()=>dispatch(increaseQty(c))}>+</button>
 </div>
 
-<button className="text-red-500 font-semibold" onClick={()=>dispatch(removeFromCart(c))}>Remove</button>
+<button className="text-red-500 font-semibold border-2 border-red-100 px-5 py-2" onClick={()=>dispatch(removeFromCart(c))}>Remove</button>
 
 
 
@@ -51,8 +51,8 @@ if(cartItems.length === 0) return <div className="container mt-5 text-center ">
     Total : ₹ {totalPrice}
   </p>
 
-  <button className="text-red-500 font-semibold" onClick={()=>dispatch(clearCart())}>Clear Cart</button> <div className="mt-3">
-    <Link to='/checkout' className='btn btn-success'>Proceed to Checkout</Link>
+  <button className="border-2 border-black-100 rounded font-semibold px-2 py-5" onClick={()=>dispatch(clearCart())}>Clear Cart</button> <div className="mt-3">
+    <Link to='/checkout' className='btn bg-blue-300 rounded text-white-100 px-5 py-2'>Proceed to Checkout</Link>
   </div>
 </div>
 
